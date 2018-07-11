@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>个性化radio checkbox - JS+CSS</title>
+		
+		<!-- 兼容IE 5678,CSS+JS控制,初始选中input加checked属性,input父级加checked类 -->
+		<style>
+			.xui-radio,
+			.xui-checkbox {
+				display: inline-block;
+				width: 37px;
+				height: 37px;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-image: url("img/radio_no.png");
+			}
+			.xui-radio,
+			.xui-checkbox {
+				*display: inline;
+			}
+			.xui-radio input,
+			.xui-checkbox input {
+				visibility: hidden;
+			}
+			.xui-radio.checked,
+			.xui-checkbox.checked {
+				background-image: url("img/radio_yes.png");
+			} 
+		</style>
+	</head> 
+	<body>
+		<fieldset>
+			<legend>自定义radio</legend>
+			<div class="xui-radio checked">
+				<input name="test-radio" value="选项一" checked="checked" type="radio" />
+			</div>
+			<div class="xui-radio">
+				<input name="test-radio" value="选项二" type="radio" />
+			</div>
+			<div class="xui-radio">
+				<input name="test-radio" value="选项三" type="radio" />
+			</div>
+			<input id="test-checked-radio" type="button" value="弹出选中radio" style="margin-left:50px;" />
+		</fieldset>
+		<fieldset style="margin-top:20px;">
+			<legend>自定义checkbox</legend>
+			<div class="xui-checkbox checked">
+				<input name="test-checkbox" value="checked-01" checked="checked" type="checkbox" />
+			</div>
+			<div class="xui-checkbox">
+				<input name="test-checkbox" value="checked-02" type="checkbox" />
+			</div>
+			<div class="xui-checkbox">
+				<input name="test-checkbox" value="checked-03" type="checkbox" />
+			</div>
+			<div class="xui-checkbox">
+				<input name="test-checkbox" value="checked-04" type="checkbox" />
+			</div>
+			<input id="test-checked-checkbox" type="button" value="弹出选中checkbox" style="margin-left:50px;" />
+		</fieldset>
+		
+		<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+			//JS修改类名,改变input选中状态
+			
+			$(document).on('click','.xui-radio',function(event){
+				var $this = $(this);
+				$this.addClass('checked').siblings().removeClass('checked').find('input[type="radio"]').prop('checked',false);
+				$this.find('input[type="radio"]').prop('checked','checked');
+			});
+
+			$(document).on('click','.xui-checkbox',function(event){
+				var $this = $(this);
+				$this.hasClass('checked')&&$this.find('input[type="checkbox"]').prop('checked')
+				?$this.removeClass('checked').find('input[type="checkbox"]').prop('checked',false)
+				:$this.addClass('checked').find('input[type="checkbox"]').prop('checked','checked');
+			});
+
+		
+			/*测试取值*/
+			
+			var radio = document.getElementsByName('test-radio'),
+				checkbox = document.getElementsByName('test-checkbox');
+				
+			// 弹出选中radio
+			document.getElementById('test-checked-radio').onclick = function(){
+				for(var i=0;i<radio.length;i++){
+					if(radio[i].checked){
+						alert(radio[i].value)
+					}
+				}
+			}
+			
+			// 弹出选中checkbox
+			document.getElementById('test-checked-checkbox').onclick = function(){
+				var data = [];
+				for(var i=0;i<checkbox.length;i++){
+					if(checkbox[i].checked){
+						data.push(checkbox[i].value);
+					}
+				}
+				alert(data);
+			}
+		</script>
+	</body>
+</html>

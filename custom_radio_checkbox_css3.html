@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>个性化radio checkbox - 纯CSS</title>
+		
+		<!-- 纯CSS方式,因为使用了CSS3选择器 :checked,所以IE8及以下不兼容 -->
+		<!-- 此方式只需要关注input的取值即可 -->
+		<style>
+			.xui-radio,
+			.xui-checkbox {
+				display: inline-block;
+			}
+			.xui-radio input[type="radio"],
+			.xui-checkbox input[type="checkbox"] {
+				display: none;
+			}
+			.xui-radio input[type="radio"]+.icon,
+			.xui-checkbox input[type="checkbox"]+.icon {
+				float: left;
+				display: inline-block;
+				width: 37px;
+				height: 37px;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-image: url("img/radio_no.png");
+			}
+			.xui-radio input[type="radio"]:checked+.icon,
+			.xui-checkbox input[type="checkbox"]:checked+.icon {
+				background-image: url("img/radio_yes.png");
+			} 
+			.xui-radio .text,
+			.xui-checkbox .text {
+				float: left;
+				margin-left: 3px;
+				display: inline-block;
+				height: 37px;
+				line-height: 37px;
+			}
+		</style>
+	</head> 
+	<body>
+		<fieldset>
+			<legend>自定义radio</legend>
+			<label class="xui-radio">
+				<input name="test-radio" value="选项一" checked="checked" type="radio" />
+				<i class="icon"></i>
+				<span class="text">选项一</span>
+			</label>
+			<label class="xui-radio">
+				<input name="test-radio" value="选项二" type="radio" />
+				<i class="icon"></i>
+				<span class="text">选项二</span>
+			</label>
+			<label class="xui-radio">
+				<input name="test-radio" value="选项三" type="radio" />
+				<i class="icon"></i>
+				<span class="text">选项三</span>
+			</label>
+			<input id="test-checked-radio" type="button" value="弹出选中radio" style="margin-left:50px;" />
+		</fieldset>
+		<fieldset style="margin-top:20px;">
+			<legend>自定义checkbox</legend>
+			<label class="xui-checkbox">
+				<input name="test-checkbox" value="checked-01" type="checkbox" />
+				<i class="icon"></i>
+				<span class="text">选项一</span>
+			</label>
+			<label class="xui-checkbox">
+				<input name="test-checkbox" value="checked-02" type="checkbox" />
+				<i class="icon"></i>
+				<span class="text">选项一</span>
+			</label>
+			<label class="xui-checkbox">
+				<input name="test-checkbox" value="checked-03" type="checkbox" />
+				<i class="icon"></i>
+				<span class="text">选项一</span>
+			</label>
+			<label class="xui-checkbox">
+				<input name="test-checkbox" value="checked-04" type="checkbox" />
+				<i class="icon"></i>
+				<span class="text">选项一</span>
+			</label>
+			<input id="test-checked-checkbox" type="button" value="弹出选中checkbox" style="margin-left:50px;" />
+		</fieldset>
+		
+		<!-- 测试取值,与radio,checkbox使用无关 -->
+		<script>
+			var radio = document.getElementsByName('test-radio'),
+				checkbox = document.getElementsByName('test-checkbox');
+				
+			// 弹出选中radio
+			document.getElementById('test-checked-radio').onclick = function(){
+				for(var i=0;i<radio.length;i++){
+					if(radio[i].checked){
+						alert(radio[i].value)
+					}
+				}
+			}
+			
+			// 弹出选中checkbox
+			document.getElementById('test-checked-checkbox').onclick = function(){
+				var data = [];
+				for(var i=0;i<checkbox.length;i++){
+					if(checkbox[i].checked){
+						data.push(checkbox[i].value);
+					}
+				}
+				alert(data);
+			}
+		</script>
+	</body>
+</html>
